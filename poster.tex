@@ -1,0 +1,414 @@
+%==============================================================
+%  COMP34812 NLU Coursework Poster
+%  Track A: Natural Language Inference (NLI)
+%  Format: A1 Landscape (compliant with coursework spec)
+%
+%  Layout:
+%    [Title bar — full width]
+%    [Task & Dataset & Project Spec — full width]
+%    [Solution B: RWKV-7  |  Solution C: Transformer Ensemble]
+%    [Comparison + Limitations & Ethics — full width]
+%==============================================================
+\documentclass[final,t]{beamer}
+\usepackage[orientation=landscape,size=a1,scale=1.15]{beamerposter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{fontawesome5}
+
+%----- Colour scheme ------------------------------------------
+\definecolor{uomPurple}{RGB}{87,36,127}
+\definecolor{uomYellow}{RGB}{233,183,23}
+\definecolor{softGrey}{RGB}{245,245,248}
+\definecolor{accentRed}{RGB}{190,40,60}
+\definecolor{accentGreen}{RGB}{30,130,76}
+\definecolor{rwkvBlue}{RGB}{28,91,163}
+\definecolor{ensembleOrange}{RGB}{198,92,25}
+
+%----- Beamer theme tweaks ------------------------------------
+\usetheme{default}
+\setbeamercolor{block title}{fg=white,bg=uomPurple}
+\setbeamercolor{block body}{fg=black,bg=softGrey}
+\setbeamerfont{block title}{size=\large,series=\bfseries}
+\setbeamertemplate{itemize item}{\color{uomPurple}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{uomYellow}$\bullet$}
+\setbeamertemplate{navigation symbols}{}
+
+% Helper: coloured block titles for the two solution columns
+\newenvironment{rwkvblock}[1]{%
+  \setbeamercolor{block title}{fg=white,bg=rwkvBlue}%
+  \begin{block}{#1}%
+}{\end{block}}
+\newenvironment{ensembleblock}[1]{%
+  \setbeamercolor{block title}{fg=white,bg=ensembleOrange}%
+  \begin{block}{#1}%
+}{\end{block}}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+\begin{frame}[t]
+\vspace*{-0.4cm}
+
+%==============================================================
+%  TITLE BAR  (full width — matches the body layout)
+%==============================================================
+\begin{columns}[t,totalwidth=\paperwidth]
+\begin{column}{0.97\paperwidth}
+\begin{tikzpicture}
+    \node[fill=uomPurple,text=white,minimum width=0.97\paperwidth,
+          minimum height=6.2cm,inner sep=0.55cm] (title) {
+          \begin{minipage}{0.95\paperwidth}
+              \centering
+              {\Huge\bfseries Natural Language Inference:
+               Recurrent LLM vs.\ Transformer Ensemble}\\[0.45cm]
+              {\LARGE Serhii Tupikin \;\textbar\; Ilya Maltsev
+               \;\textbar\; Julius Vander Arend
+               \;\;$\diamond$\;\; Group CW2
+               \;\;$\diamond$\;\; Track A: NLI}\\[0.15cm]
+              {\Large COMP34812 Natural Language Understanding \;\textbar\;
+               The University of Manchester, 2025--26}
+          \end{minipage}
+    };
+    \draw[uomYellow,line width=6pt]
+         ([yshift=-4mm]title.south west) --
+         ([yshift=-4mm]title.south east);
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\vspace*{-1.2cm}
+
+%==============================================================
+%  FULL-WIDTH : Task, Dataset & Project Spec
+%==============================================================
+\begin{columns}[t,totalwidth=\paperwidth]
+\begin{column}{0.97\paperwidth}
+
+\begin{block}{\faBullseye\ \ Task \& Dataset}
+\vspace{0.4em}
+\begin{columns}[c]
+
+%-- Sub-col 1: Task definition --
+\begin{column}{0.48\textwidth}
+\centering
+\textbf{Natural Language Inference (NLI).}
+Given a \emph{premise} $p$ and a \emph{hypothesis} $h$,
+decide whether $h$ is entailed by $p$.\\[0.2em]
+\begin{tabular}{@{}r@{\;}l@{}}
+\textbf{Input:}  & sentence pair $(p,h)$ \\
+\textbf{Output:} & \emph{entailment} or \emph{contradiction}
+                   — binary label $\{1,\,0\}$ \\
+\textbf{Track:}  & A — pairwise sequence classification \\
+\end{tabular}
+\end{column}
+
+%-- Sub-col 2: Dataset stats --
+\begin{column}{0.48\textwidth}
+\centering
+\textbf{NLU Shared-Task NLI corpus}\\
+\emph{no external datasets allowed}\\[0.2em]
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{lr}
+\toprule
+\textbf{Split} & \textbf{Pairs} \\
+\midrule
+Training        & 24{,}432 \\
+Development     & 6{,}736  \\
+Test (hidden)   & 3{,}302  \\
+\bottomrule
+\end{tabular}
+\end{column}
+
+\end{columns}
+\vspace{-0.3em}
+\end{block}
+
+\end{column}
+\end{columns}
+
+\vspace{0.15cm}
+
+%==============================================================
+%  TWO-COLUMN BODY : RWKV  |  Transformer Ensemble
+%  Raw side-by-side minipages with a hard fixed height — this
+%  GUARANTEES both columns end at the same Y so the bottom row
+%  is perfectly aligned.  No \begin{columns} quirks.
+%==============================================================
+\newlength{\solncolheight}
+\setlength{\solncolheight}{31cm}
+\newlength{\solncolwidth}
+\setlength{\solncolwidth}{0.485\paperwidth}
+
+\noindent
+%--------------------------------------------------------------
+%  LEFT COLUMN : RWKV-7 "Goose"  (Category B)
+%--------------------------------------------------------------
+\begin{minipage}[t][\solncolheight][t]{\solncolwidth}
+
+\vspace{1.0em}
+\begin{center}
+\colorbox{rwkvBlue}{\color{white}\large\bfseries
+\hspace{0.4em}\faCrow\ \ Solution B: RWKV-7 ``Goose''\hspace{0.4em}}
+\end{center}
+
+\begin{rwkvblock}{Model Overview}
+\textbf{An attention-free, recurrent 7.2B-parameter LLM.}
+\begin{itemize}
+    \item \textbf{Architecture:} RWKV-7 — an advanced RNN
+          reaching transformer-level quality without
+          quadratic self-attention.
+    \item \textbf{Core innovation:} the \emph{Delta Rule}
+          replaces softmax attention with a recurrent state
+          update, removing the $O(n^2)$ bottleneck.
+    \item \textbf{Complexity:}
+          \;\faClock\ \textbf{Time:} $\mathcal{O}(n)$ \quad
+          \;\faMemory\ \textbf{Space:} $\mathcal{O}(1)$
+    \item \textbf{Why it fits NLI:} long-range, streaming-friendly
+          reasoning over $(p,h)$ pairs at a fraction of transformer
+          inference cost.
+\end{itemize}
+\end{rwkvblock}
+
+\begin{rwkvblock}{Training Strategy: LoRA Fine-Tuning}
+\textbf{Low-Rank Adaptation} tailored for binary NLI classification.
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ll}
+\toprule
+\textbf{Rank / Alpha}     & $r = 32$ \;\;/\;\; $\alpha = 64$ \\
+\textbf{Trainable params} & $\sim$83.8M \;(\textbf{1.15\%} of total) \\
+\textbf{Frozen params}    & $\sim$7.12B \\
+\textbf{Hardware}         & 1$\times$ RTX 5090 \\
+\textbf{Training time}    & \textbf{$\sim$2 h} for 4 epochs \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Why LoRA?} Small low-rank matrices are added into the
+frozen RWKV-7 model — updating only $\sim$1.15\% of its weights
+— to fine-tune it for NLI while keeping its general language
+abilities intact.
+\end{rwkvblock}
+
+\begin{rwkvblock}{Results on Dev Set}
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lccc}
+\toprule
+ & \textbf{F1} & \textbf{Accuracy} & \textbf{MCC} \\
+\midrule
+Baseline (Cat.\ B) & \textit{[\,--\,]} & \textit{[\,--\,]} & \textit{[\,--\,]} \\
+\rowcolor{softGrey}
+\textcolor{accentGreen}{\textbf{\faTrophy\ \ Our RWKV-7 (LoRA)}} &
+\textcolor{accentGreen}{\textbf{0.9419}} &
+\textcolor{accentGreen}{\textbf{0.9399}} &
+\textcolor{accentGreen}{\textbf{0.8796}} \\
+\bottomrule
+\end{tabular}
+\end{rwkvblock}
+
+\begin{rwkvblock}{Key Takeaways}
+\begin{itemize}
+    \item \textbf{Delta rule is all you need}: the attention-free
+          recurrent backbone matches transformer-level quality at
+          \emph{linear-time} inference cost.
+    \item \textbf{Matches a heavy transformer ensemble}: despite
+          being recurrent, RWKV-7 reached the same task-level
+          performance as our compute-heavy Transformer Ensemble
+          (Solution C) on this NLI task.
+    \item \textbf{Scale vs.\ efficiency}: the lighter 2.9B
+          variant came \emph{close but not as good} even after 7
+          epochs (vs.\ 4 for 7.2B) — we chose 7.2B because the
+          goal was maximum achievable performance, not minimum
+          compute.
+\end{itemize}
+\end{rwkvblock}
+
+\vfill
+\end{minipage}%
+\hfill
+%--------------------------------------------------------------
+%  RIGHT COLUMN : Transformer Ensemble  (Category C)
+%--------------------------------------------------------------
+\begin{minipage}[t][\solncolheight][t]{\solncolwidth}
+
+\vspace{1.0em}
+\begin{center}
+\colorbox{ensembleOrange}{\color{white}\large\bfseries
+\hspace{0.4em}\faLayerGroup\ \ Solution C: Transformer Ensemble\hspace{0.4em}}
+\end{center}
+
+\begin{ensembleblock}{Model Overview}
+\textit{[TODO: confirm exact base models and combination strategy]}
+\begin{itemize}
+    \item \textbf{Architecture:} ensemble of
+          \textit{[e.g.\ DeBERTa-v3-large, RoBERTa-large, BERT-large]}
+          fine-tuned independently on the NLI corpus.
+    \item \textbf{Combination:}
+          \textit{[e.g.\ soft-voting / logit averaging / stacking]}
+          over the per-model probability outputs.
+    \item \textbf{Input format:}
+          \texttt{[CLS] premise [SEP] hypothesis [SEP]}.
+    \item \textbf{Why an ensemble:} reduces variance of individual
+          fine-tunes, captures diverse lexical/syntactic priors
+          from different pre-training corpora.
+\end{itemize}
+\end{ensembleblock}
+
+\begin{ensembleblock}{Training Strategy}
+\textit{[TODO: fill in once you have the final config]}
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ll}
+\toprule
+\textbf{Base models}     & \textit{[model\_1, model\_2, model\_3]} \\
+\textbf{Fine-tune method}& Full fine-tune / head-only / adapters \\
+\textbf{Optimiser}       & AdamW, lr $= \textit{[\dots]}$ \\
+\textbf{Batch size}      & \textit{[\dots]} \\
+\textbf{Epochs}          & \textit{[\dots]} per model \\
+\textbf{Hardware}        & \textit{[e.g. RTX 4090 / A100]} \\
+\textbf{Total train time}& \textit{[\dots]} \\
+\bottomrule
+\end{tabular}
+\end{center}
+Each model is validated independently; the final ensemble
+weights are selected on the development set to optimise F1.
+\end{ensembleblock}
+
+\begin{ensembleblock}{Results on Dev Set}
+\noindent
+% --- LEFT: results table ---------------------------------------
+\begin{minipage}[t]{0.47\linewidth}
+\centering
+\vspace{0pt}%
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lccc}
+\toprule
+ & \textbf{F1} & \textbf{Acc.} & \textbf{MCC} \\
+\midrule
+Baseline (C)  & \textit{[-]} & \textit{[-]} & \textit{[-]} \\
+Single best   & \textit{[-]} & \textit{[-]} & \textit{[-]} \\
+\rowcolor{softGrey}
+\textbf{Our Ensemble} & \textit{[-]} & \textit{[-]} & \textit{[-]} \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\small\textit{[TODO: add headline finding once
+numbers are in.]}
+\end{minipage}\hfill
+% --- RIGHT: chart placeholder ----------------------------------
+\begin{minipage}[t]{0.50\linewidth}
+\centering
+\vspace{0pt}%
+% Drop your chart here:
+%   \includegraphics[width=\linewidth]{figures/ensemble_f1.pdf}
+\fbox{\begin{minipage}[c][3.8cm][c]{\dimexpr\linewidth-2\fboxsep\relax}
+\centering
+\small\textit{[TODO: chart — e.g.\ per-model F1 vs.\ ensemble,
+or confusion matrix. Replace this box with
+\texttt{\textbackslash includegraphics\{\dots\}}.]}
+\end{minipage}}
+\end{minipage}
+\end{ensembleblock}
+
+\begin{ensembleblock}{Key Takeaways}
+\begin{itemize}
+    \item \textit{[TODO: ensemble adds X F1 points over the single
+          best transformer.]}
+    \item \textit{[TODO: diverse base models contribute the most
+          to the gain (low prediction correlation).]}
+    \item \textit{[TODO: diminishing returns beyond N=? members.]}
+\end{itemize}
+\end{ensembleblock}
+
+\vfill
+\end{minipage}%
+
+\vspace{0.3cm}
+
+%==============================================================
+%  BOTTOM ROW : Comparison + Error Analysis  |  Limitations
+%  Same raw-minipage pattern for guaranteed alignment.
+%==============================================================
+\newlength{\bottomrowheight}
+\setlength{\bottomrowheight}{11cm}
+
+\noindent
+\begin{minipage}[t][\bottomrowheight][t]{\solncolwidth}
+
+\begin{block}{\faBalanceScaleLeft\ \ Head-to-Head Comparison (Dev)}
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{System} & \textbf{Params (train)} & \textbf{F1}
+                & \textbf{Acc.} & \textbf{MCC} \\
+\midrule
+\textcolor{rwkvBlue}{\textbf{RWKV-7 + LoRA}} &
+$\sim$83.8M & \textbf{0.9419} & 0.9399 & 0.8796 \\
+\textcolor{ensembleOrange}{\textbf{Transformer Ensemble}} &
+\textit{[\,--\,]} & \textit{[\,--\,]} & \textit{[\,--\,]}
+                  & \textit{[\,--\,]} \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\small A recurrent LLM with 1.15\% tunable parameters competes
+directly with a stacked transformer ensemble — the core
+headline of this project.
+\end{block}
+
+\vfill
+\end{minipage}%
+\hfill
+\begin{minipage}[t][\bottomrowheight][t]{\solncolwidth}
+
+\begin{block}{\faBalanceScale\ \ Limitations \& Ethical Considerations}
+\begin{itemize}
+    \item \textbf{Architecture implementation constraints.}
+          We use the \texttt{fla-hub} port of RWKV-7 for HF/PEFT
+          compatibility; it does not yet fully replicate the
+          native CUDA reference's initialisation rules and
+          layer-specific learning rates, so performance may sit
+          slightly below the theoretical maximum.
+    \item \textbf{Pre-training bias.} Both systems inherit biases
+          from web-scale pre-training corpora; predictions may
+          reflect societal stereotypes present upstream.
+    \item \textbf{Closed-task caveat.} No external data used in
+          fine-tuning, but pre-training corpora are \emph{not}
+          controlled or audited.
+    \item \textbf{Label schema.} Binary entailment is a
+          simplification — real-world inference often includes a
+          \emph{neutral} class.
+    \item \textbf{Intended use.} Research and coursework only;
+          not validated for high-stakes domains (legal, medical,
+          safety-critical).
+\end{itemize}
+\end{block}
+
+\vfill
+\end{minipage}%
+
+%==============================================================
+%  FOOTER
+%==============================================================
+\vspace{0.3cm}
+\begin{center}
+\textcolor{uomPurple}{\rule{0.95\paperwidth}{1pt}}\\[0.2cm]
+{\small
+\faGithub\ \ \texttt{https://github.com/d4k3r/NLU} \quad
+\faFile\ \ Model cards \& demo notebooks in Canvas submission
+}
+\end{center}
+
+\end{frame}
+\end{document}
