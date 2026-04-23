@@ -247,86 +247,72 @@ Baseline (Cat.\ B) & \textit{[\,--\,]} & \textit{[\,--\,]} & \textit{[\,--\,]} \
 \end{center}
 
 \begin{ensembleblock}{Model Overview}
-\textit{[TODO: confirm exact base models and combination strategy]}
+\textbf{Blending ensemble of four transformers with an XGBoost meta-learner.}
 \begin{itemize}
-    \item \textbf{Architecture:} ensemble of
-          \textit{[e.g.\ DeBERTa-v3-large, RoBERTa-large, BERT-large]}
-          fine-tuned independently on the NLI corpus.
-    \item \textbf{Combination:}
-          \textit{[e.g.\ soft-voting / logit averaging / stacking]}
-          over the per-model probability outputs.
-    \item \textbf{Input format:}
-          \texttt{[CLS] premise [SEP] hypothesis [SEP]}.
-    \item \textbf{Why an ensemble:} reduces variance of individual
-          fine-tunes, captures diverse lexical/syntactic priors
-          from different pre-training corpora.
+    \item \textbf{Base models:}
+          DeBERTa-v3-large, ELECTRA-large, DeBERTa-v2-XXLarge, RoBERTa-large.
+    \item \textbf{Combination:} per-model softmax probs $\to$ XGBoost classifier
+          (100 trees, depth~5, lr~0.1). Learns optimal weighting per model.
+    \item \textbf{Input:} \texttt{[CLS] $p$ [SEP] $h$ [SEP]}, max length 128, truncation.
+    \item \textbf{Why:} diverse architectures capture complementary signals; the
+          meta-learner blends them better than uniform soft voting.
 \end{itemize}
 \end{ensembleblock}
 
 \begin{ensembleblock}{Training Strategy}
-\textit{[TODO: fill in once you have the final config]}
+\textbf{Optuna HPO (20 trials) $\to$ FGM fine-tuning $\to$ XGBoost blending.}
+\vspace{0.1em}
 \begin{center}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{ll}
+\renewcommand{\arraystretch}{1.10}
+\begin{tabular}{@{}l@{\enskip}l@{\enskip}l@{\enskip}l@{}}
 \toprule
-\textbf{Base models}     & \textit{[model\_1, model\_2, model\_3]} \\
-\textbf{Fine-tune method}& Full fine-tune / head-only / adapters \\
-\textbf{Optimiser}       & AdamW, lr $= \textit{[\dots]}$ \\
-\textbf{Batch size}      & \textit{[\dots]} \\
-\textbf{Epochs}          & \textit{[\dots]} per model \\
-\textbf{Hardware}        & \textit{[e.g. RTX 4090 / A100]} \\
-\textbf{Total train time}& \textit{[\dots]} \\
+\textbf{Model} & \textbf{Tuning} & \textbf{LR} & \textbf{Loss} \\
+\midrule
+DeBERTa-v3-L      & Full FT      & 8.36e-6  & CE \\
+ELECTRA-L         & Full FT      & 1.52e-5  & CE \\
+RoBERTa-L         & Full FT      & 7.80e-6  & Focal \\
+DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 \bottomrule
 \end{tabular}
 \end{center}
-Each model is validated independently; the final ensemble
-weights are selected on the development set to optimise F1.
+\begin{tabular}{@{}l@{: }l@{\qquad}l@{: }l@{}}
+\small Epochs & \small 5 & \small Batch & \small 16 (accum for XXL) \\
+\small Adversarial & \small FGM $\epsilon\!=\!1.0$
+  & \small Optimiser & \small AdamW, wd 0.01 \\
+\small LR & \small linear warmup 10\%
+  & \small Time & \small $\sim$2 h total \\
+\end{tabular}
 \end{ensembleblock}
 
 \begin{ensembleblock}{Results on Dev Set}
-\noindent
-% --- LEFT: results table ---------------------------------------
-\begin{minipage}[t]{0.47\linewidth}
 \centering
-\vspace{0pt}%
 \renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lccc}
 \toprule
  & \textbf{F1} & \textbf{Acc.} & \textbf{MCC} \\
 \midrule
-Baseline (C)  & \textit{[-]} & \textit{[-]} & \textit{[-]} \\
-Single best   & \textit{[-]} & \textit{[-]} & \textit{[-]} \\
+Baseline (C)       & \textit{[\dots]} & \textit{[\dots]} & \textit{[\dots]} \\
+Single best model  & \textit{[\dots]} & \textit{[\dots]} & \textit{[\dots]} \\
 \rowcolor{softGrey}
-\textbf{Our Ensemble} & \textit{[-]} & \textit{[-]} & \textit{[-]} \\
+\textbf{\faTrophy\ \ Our Ensemble (XGBoost)} &
+\textcolor{accentGreen}{\textbf{0.9621}} &
+\textit{[\dots]} & \textit{[\dots]} \\
 \bottomrule
 \end{tabular}
-
-\vspace{0.4em}
-\small\textit{[TODO: add headline finding once
-numbers are in.]}
-\end{minipage}\hfill
-% --- RIGHT: chart placeholder ----------------------------------
-\begin{minipage}[t]{0.50\linewidth}
-\centering
-\vspace{0pt}%
-% Drop your chart here:
-%   \includegraphics[width=\linewidth]{figures/ensemble_f1.pdf}
-\fbox{\begin{minipage}[c][3.8cm][c]{\dimexpr\linewidth-2\fboxsep\relax}
-\centering
-\small\textit{[TODO: chart — e.g.\ per-model F1 vs.\ ensemble,
-or confusion matrix. Replace this box with
-\texttt{\textbackslash includegraphics\{\dots\}}.]}
-\end{minipage}}
-\end{minipage}
+\vspace{0.2em}
+\scriptsize XGBoost blending $>$ uniform soft voting; meta-learner
+weights DeBERTa-v3/XXL most heavily.
 \end{ensembleblock}
 
 \begin{ensembleblock}{Key Takeaways}
 \begin{itemize}
-    \item \textit{[TODO: ensemble adds X F1 points over the single
-          best transformer.]}
-    \item \textit{[TODO: diverse base models contribute the most
-          to the gain (low prediction correlation).]}
-    \item \textit{[TODO: diminishing returns beyond N=? members.]}
+    \item \textbf{$\sim$2.0M trainable params} for $\sim$2.5B total ensemble
+          via LoRA on DeBERTa-v2-XXL; three others are full fine-tunes.
+    \item \textbf{FGM adversarial training} improved all models' F1 in Optuna
+          — perturbation $\epsilon\!=\!1.0$ on word embeddings.
+    \item \textbf{XGBoost meta-learner} beats simple averaging by learning
+          non-uniform per-model weights; ensemble F1 = 0.9621 vs.\
+          single-best $\sim$0.9278 from Optuna.
 \end{itemize}
 \end{ensembleblock}
 
@@ -356,15 +342,15 @@ or confusion matrix. Replace this box with
 \textcolor{rwkvBlue}{\textbf{RWKV-7 + LoRA}} &
 $\sim$83.8M & \textbf{0.9419} & 0.9399 & 0.8796 \\
 \textcolor{ensembleOrange}{\textbf{Transformer Ensemble}} &
-\textit{[\,--\,]} & \textit{[\,--\,]} & \textit{[\,--\,]}
-                  & \textit{[\,--\,]} \\
+$\sim$2.5B ($\sim$2.0M trainable) & \textcolor{accentGreen}{\textbf{0.9621}} & \textit{[\dots]} & \textit{[\dots]} \\
 \bottomrule
 \end{tabular}
 
 \vspace{0.3em}
 \small A recurrent LLM with 1.15\% tunable parameters competes
-directly with a stacked transformer ensemble — the core
-headline of this project.
+directly with a heavy transformer ensemble — the core
+headline of this project. The ensemble edges ahead with
+F1~0.9621 vs.\ 0.9419, at the cost of $\sim$2.5B params.
 \end{block}
 
 \vfill
