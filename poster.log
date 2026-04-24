@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.26)  24 APR 2026 11:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.26)  24 APR 2026 11:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1237,7 +1237,7 @@ nput line 427.
 File: download.png Graphic file (type png)
 <use download.png>
 Package pdftex.def Info: download.png  used on input line 427.
-(pdftex.def)             Requested size: 305.16585pt x 199.1748pt.
+(pdftex.def)             Requested size: 414.1776pt x 270.3243pt.
 \bottomrowheight=\skip71
 LaTeX Font Info:    Calculating math sizes for size <16.8> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -1304,7 +1304,7 @@ Package rerunfilecheck Info: File `poster.out' has not changed.
 Here is how much of TeX's memory you used:
  29890 strings out of 473190
  593956 string characters out of 5715800
- 1070154 words of memory out of 5000000
+ 1070168 words of memory out of 5000000
  52517 multiletter control sequences out of 15000+600000
  678339 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
