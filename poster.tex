@@ -147,8 +147,10 @@ Test (hidden)   & 3{,}302  \\
 \newlength{\solncolheight}
 \setlength{\solncolheight}{32.5cm}
 \newlength{\solncolwidth}
-\setlength{\solncolwidth}{0.485\paperwidth}
+\setlength{\solncolwidth}{0.481\paperwidth}
 
+\begin{columns}[t,totalwidth=\paperwidth]
+\begin{column}{0.97\paperwidth}
 \noindent
 %--------------------------------------------------------------
 %  LEFT COLUMN : RWKV-7 "Goose"  (Category B)
@@ -337,6 +339,8 @@ Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 
 \vfill
 \end{minipage}%
+\end{column}
+\end{columns}
 
 \vspace{0.1cm}
 
@@ -347,6 +351,8 @@ Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 \newlength{\bottomrowheight}
 \setlength{\bottomrowheight}{7cm}
 
+\begin{columns}[t,totalwidth=\paperwidth]
+\begin{column}{0.97\paperwidth}
 \noindent
 \begin{minipage}[t][\bottomrowheight][t]{\solncolwidth}
 
@@ -398,6 +404,8 @@ F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
 
 \vfill
 \end{minipage}%
+\end{column}
+\end{columns}
 
 %==============================================================
 %  REFERENCES + FOOTER
