@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.26)  24 APR 2026 10:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.26)  24 APR 2026 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1152,135 +1152,122 @@ Dictionary: translator-numbers-dictionary, Language: English
 tionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (./poster.nav)
-LaTeX Font Info:    Calculating math sizes for size <34.83> on input line 411.
+LaTeX Font Info:    Calculating math sizes for size <34.83> on input line 427.
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
-411.
+427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 4
-11.
+27.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-411.
+427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-411.
+427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <34.83> on input line 411.
+(Font)              <34.83> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <24.38089> on input line 411.
+(Font)              <24.38089> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.415> on input line 411.
+(Font)              <17.415> on input line 427.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <34.83> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <24.38089> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <17.415> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
-LaTeX Font Info:    Calculating math sizes for size <20.15> on input line 411.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
+LaTeX Font Info:    Calculating math sizes for size <20.15> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <20.15> on input line 411.
+(Font)              <20.15> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.10492> on input line 411.
+(Font)              <14.10492> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.075> on input line 411.
+(Font)              <10.075> on input line 427.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <20.15> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <14.10492> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.075> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
 
-Overfull \hbox (6.4pt too wide) in paragraph at lines 411--411
+Overfull \hbox (6.4pt too wide) in paragraph at lines 427--427
 [][]  
  []
 
 
-Underfull \hbox (badness 10000) detected at line 411
+Underfull \hbox (badness 10000) detected at line 427
 [][][][][][][][][]
  []
 
 LaTeX Font Info:    Trying to load font information for U+fontawesomefree0 on i
-nput line 411.
+nput line 427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/fontawesome5/ufontawesomefree0.fd
 )
-Underfull \hbox (badness 10000) detected at line 411
+Underfull \hbox (badness 10000) detected at line 427
 [][][][][][][][][]
  []
 
 \solncolheight=\skip69
 \solncolwidth=\skip70
 LaTeX Font Info:    Trying to load font information for U+fontawesomefree2 on i
-nput line 411.
+nput line 427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/fontawesome5/ufontawesomefree2.fd
 )
 LaTeX Font Info:    Trying to load font information for U+fontawesomefree3 on i
-nput line 411.
+nput line 427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/fontawesome5/ufontawesomefree3.fd
 )
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
-11.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Calculating math sizes for size <16.8> on input line 411.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <16.8> on input line 411.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <11.75995> on input line 411.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8.4> on input line 411.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <16.8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <11.75995> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8.4> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
 <download.png, id=13, 499.3857pt x 325.9377pt>
 File: download.png Graphic file (type png)
 <use download.png>
-Package pdftex.def Info: download.png  used on input line 411.
-(pdftex.def)             Requested size: 392.37677pt x 256.0954pt.
-LaTeX Font Info:    Calculating math sizes for size <11.66> on input line 411.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <11.66> on input line 411.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8.16196> on input line 411.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5.83> on input line 411.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <11.66> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8.16196> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5.83> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 411.
+Package pdftex.def Info: download.png  used on input line 427.
+(pdftex.def)             Requested size: 305.16585pt x 199.1748pt.
 \bottomrowheight=\skip71
+LaTeX Font Info:    Calculating math sizes for size <16.8> on input line 427.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <16.8> on input line 427.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <11.75995> on input line 427.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8.4> on input line 427.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <16.8> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <11.75995> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8.4> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 427.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
+27.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 LaTeX Font Info:    Trying to load font information for U+fontawesomebrands0 on
- input line 411.
+ input line 427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/fontawesome5/ufontawesomebrands0.
 fd)
 LaTeX Font Info:    Font shape `U/fontawesomebrands0/solid/n' in size <16.8> no
 t available
 (Font)              Font shape `U/fontawesomebrands0/regular/n' tried instead o
-n input line 411.
+n input line 427.
 LaTeX Font Info:    Trying to load font information for U+fontawesomefree1 on i
-nput line 411.
+nput line 427.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/fontawesome5/ufontawesomefree1.fd
 )
@@ -1315,13 +1302,13 @@ Package rerunfilecheck Info: File `poster.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29921 strings out of 473190
- 594438 string characters out of 5715800
- 1058724 words of memory out of 5000000
- 52544 multiletter control sequences out of 15000+600000
- 700928 words of font info for 142 fonts, out of 8000000 for 9000
+ 29890 strings out of 473190
+ 593956 string characters out of 5715800
+ 1070154 words of memory out of 5000000
+ 52517 multiletter control sequences out of 15000+600000
+ 678339 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,17n,123p,448b,1193s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,16n,123p,448b,1193s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/fontawesome5/FontAweso
 me5Brands-Regular.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/fo
 ntawesome5/FontAwesome5Free-Solid.pfb></usr/local/texlive/2025/texmf-dist/fonts
@@ -1332,7 +1319,7 @@ s17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb>
 al/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive
 /2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on poster.pdf (1 page, 216758 bytes).
+Output written on poster.pdf (1 page, 218548 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  61 compressed objects within 1 object stream

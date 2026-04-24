@@ -135,7 +135,7 @@ Test (hidden)   & 3{,}302  \\
 \end{column}
 \end{columns}
 
-\vspace{0.15cm}
+\vspace{-0.3cm}
 
 %==============================================================
 %  TWO-COLUMN BODY : RWKV  |  Transformer Ensemble
@@ -144,7 +144,7 @@ Test (hidden)   & 3{,}302  \\
 %  is perfectly aligned.  No \begin{columns} quirks.
 %==============================================================
 \newlength{\solncolheight}
-\setlength{\solncolheight}{31cm}
+\setlength{\solncolheight}{32cm}
 \newlength{\solncolwidth}
 \setlength{\solncolwidth}{0.485\paperwidth}
 
@@ -154,11 +154,11 @@ Test (hidden)   & 3{,}302  \\
 %--------------------------------------------------------------
 \begin{minipage}[t][\solncolheight][t]{\solncolwidth}
 
-\vspace{1.0em}
-\begin{center}
+\vspace*{0pt}
+{\centering
 \colorbox{rwkvBlue}{\color{white}\large\bfseries
-\hspace{0.4em}\faCrow\ \ Solution B: RWKV-7 ``Goose''\hspace{0.4em}}
-\end{center}
+\hspace{0.4em}\faCrow\ \ Solution B: RWKV-7 ``Goose''\hspace{0.4em}}\par}
+\vspace{-0.6em}
 
 \begin{rwkvblock}{Model Overview}
 \textbf{An attention-free, recurrent 7.2B-parameter LLM.}
@@ -199,7 +199,8 @@ abilities intact.
 \end{rwkvblock}
 
 \begin{rwkvblock}{Results on Dev Set}
-\centering
+\vspace{0.3em}
+\begin{center}
 \renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lccc}
 \toprule
@@ -213,6 +214,8 @@ Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
 \textcolor{accentGreen}{\textbf{0.8796}} \\
 \bottomrule
 \end{tabular}
+\end{center}
+\vspace{0.3em}
 \end{rwkvblock}
 
 \begin{rwkvblock}{Key Takeaways}
@@ -240,11 +243,11 @@ Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
 %--------------------------------------------------------------
 \begin{minipage}[t][\solncolheight][t]{\solncolwidth}
 
-\vspace{1.0em}
-\begin{center}
+\vspace*{0pt}
+{\centering
 \colorbox{ensembleOrange}{\color{white}\large\bfseries
-\hspace{0.4em}\faLayerGroup\ \ Solution C: Transformer Ensemble\hspace{0.4em}}
-\end{center}
+\hspace{0.4em}\faLayerGroup\ \ Solution C: Transformer Ensemble\hspace{0.4em}}\par}
+\vspace{-0.6em}
 
 \begin{ensembleblock}{Model Overview}
 \textbf{Blending ensemble of four transformers with an XGBoost meta-learner.}
@@ -253,7 +256,7 @@ Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
           DeBERTa-v3-large, ELECTRA-large, DeBERTa-v2-XXLarge, RoBERTa-large.
     \item \textbf{Combination:} per-model softmax probs $\to$ XGBoost classifier
           (100 trees, depth~5, lr~0.1). Learns optimal weighting per model.
-    \item \textbf{Input:} \texttt{[CLS] $p$ [SEP] $h$ [SEP]}, max length 128, truncation.
+    \item \textbf{Optimization:} aggressive hyper-parameter optimization in ensemble using Optuna.
     \item \textbf{Why:} Diverse ensemble architecture demonstrated significant performance improvements over a single model.
 \end{itemize}
 \end{ensembleblock}
@@ -278,41 +281,42 @@ DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 
 \vspace{0.6em}
 
-\begin{tabular}{@{}l@{: }l@{\qquad}l@{: }l@{}}
-\small Epochs & \small 5 & \small Batch & \small 16 (accum for XXL) \\
-\small Adversarial & \small FGM $\epsilon\!=\!1.0$
-  & \small Optimiser & \small AdamW, wd 0.01 \\
-\small LR & \small linear warmup 10\%
-  & \small Time & \small $\sim$2 h total \\
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Epochs} & 5 & \textbf{Batch} & 16 (accum for XXL) \\
+\textbf{Adversarial} & FGM $\epsilon\!=\!1.0$ & \textbf{Optimiser} & AdamW, wd 0.01 \\
+\textbf{LR} & linear warmup 10\% & \textbf{Time} & $\sim$2 h total \\
+\bottomrule
 \end{tabular}
 \end{minipage}%
 \hfill
 \begin{minipage}[t]{0.44\linewidth}
 \raisebox{\dimexpr-\height+\ht\strutbox\relax}{%
-  \includegraphics[width=\linewidth,height=9cm,keepaspectratio]{download.png}%
+  \includegraphics[width=\linewidth,height=7cm,keepaspectratio]{download.png}%
 }\\[0.2em]
 \centering{\scriptsize XGBoost meta-learner voting weights — DeBERTa-v3-L dominates.}
 \end{minipage}
 \end{ensembleblock}
 
 \begin{ensembleblock}{Results on Dev Set}
-\centering
+\vspace{0.3em}
+\begin{center}
 \renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lccc}
 \toprule
  & \textbf{F1} & \textbf{Acc.} & \textbf{MCC} \\
 \midrule
 Baseline — BERT   & 0.8198 & 0.8202 & 0.6400 \\
-Single best model (DeBERTa-v3-L)  & \textbf{0.9457} & \textit{[\dots]} & \textit{[\dots]} \\
+Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 \rowcolor{softGrey}
 \textcolor{accentGreen}{\textbf{\faTrophy\ \ Our Ensemble (XGBoost)}} &
 \textcolor{accentGreen}{\textbf{0.9621}} &
-\textit{[\dots]} & \textit{[\dots]} \\
+\textcolor{accentGreen}{\textbf{0.9621}} &
+\textcolor{accentGreen}{\textbf{0.9242}} \\
 \bottomrule
 \end{tabular}
-\vspace{0.2em}
-\scriptsize XGBoost blending $>$ uniform soft voting; meta-learner
-weights DeBERTa-v3/XXL most heavily.
+\end{center}
+\vspace{0.3em}
 \end{ensembleblock}
 
 \begin{ensembleblock}{Key Takeaways}
@@ -324,21 +328,21 @@ weights DeBERTa-v3/XXL most heavily.
           — perturbation $\epsilon\!=\!1.0$ on word embeddings.
     \item \textbf{XGBoost meta-learner} beats simple averaging by learning
           non-uniform per-model weights; ensemble F1 = 0.9621 vs.\
-          single-best $\sim$0.9278 from Optuna. \
+          single-best $\sim$0.9278.
 \end{itemize}
 \end{ensembleblock}
 
 \vfill
 \end{minipage}%
 
-\vspace{0.3cm}
+\vspace{0.1cm}
 
 %==============================================================
 %  BOTTOM ROW : Comparison + Error Analysis  |  Limitations
 %  Same raw-minipage pattern for guaranteed alignment.
 %==============================================================
 \newlength{\bottomrowheight}
-\setlength{\bottomrowheight}{11cm}
+\setlength{\bottomrowheight}{7cm}
 
 \noindent
 \begin{minipage}[t][\bottomrowheight][t]{\solncolwidth}
@@ -354,7 +358,7 @@ weights DeBERTa-v3/XXL most heavily.
 \textcolor{rwkvBlue}{\textbf{RWKV-7 + LoRA}} &
 $\sim$83.8M & \textbf{0.9419} & 0.9399 & 0.8796 \\
 \textcolor{ensembleOrange}{\textbf{Transformer Ensemble}} &
-$\sim$1.13B trainable & \textcolor{accentGreen}{\textbf{0.9621}} & \textit{[\dots]} & \textit{[\dots]} \\
+$\sim$1.13B trainable & \textcolor{accentGreen}{\textbf{0.9621}} & 0.9621 & 0.9242 \\
 \bottomrule
 \end{tabular}
 
@@ -378,18 +382,13 @@ F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
           native CUDA reference's initialisation rules and
           layer-specific learning rates, so performance may sit
           slightly below the theoretical maximum.
-    \item \textbf{Pre-training bias.} Both systems inherit biases
-          from web-scale pre-training corpora; predictions may
-          reflect societal stereotypes present upstream.
+    \item \textbf{Pre-training bias.} Both systems inherit biases from web-scale pre-training corpora.
     \item \textbf{Closed-task caveat.} No external data used in
           fine-tuning, but pre-training corpora are \emph{not}
           controlled or audited.
     \item \textbf{Label schema.} Binary entailment is a
           simplification — real-world inference often includes a
           \emph{neutral} class.
-    \item \textbf{Intended use.} Research and coursework only;
-          not validated for high-stakes domains (legal, medical,
-          safety-critical).
 \end{itemize}
 \end{block}
 
@@ -397,11 +396,28 @@ F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
 \end{minipage}%
 
 %==============================================================
-%  FOOTER
+%  REFERENCES + FOOTER
 %==============================================================
-\vspace{0.3cm}
+\noindent
+\begin{minipage}{0.97\paperwidth}
+\begin{block}{\faBook\ \ References}
+\small
+\setlength{\parskip}{0.25em}
+\textcolor{rwkvBlue}{\textbf{Solution B — RWKV-7:}}\ \
+[1] Hu et al.\ (2021). \emph{LoRA: Low-Rank Adaptation of Large Language Models}. arXiv:2106.09685.\ \
+[2] Peng et al.\ (2025). \emph{RWKV-7 ``Goose'' with Expressive Dynamic State Evolution}. arXiv:2503.14456.\\
+\textcolor{ensembleOrange}{\textbf{Solution C — Transformer Ensemble:}}\ \
+[1] Chen \& Guestrin (2016). \emph{XGBoost: A Scalable Tree Boosting System}. KDD '16, pp.\ 785--794.\ \
+[2] Clark et al.\ (2020). \emph{ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators}. arXiv:2003.10555.\ \
+[3] He et al.\ (2021). \emph{DeBERTa: Decoding-enhanced BERT with Disentangled Attention}. arXiv:2006.03654.\ \
+[4] He et al.\ (2023). \emph{DeBERTaV3: Improving DeBERTa using ELECTRA-Style Pre-Training with Gradient-Disentangled Embedding Sharing}. arXiv:2111.09543.\ \
+[5] Hu et al.\ (2021). \emph{LoRA: Low-Rank Adaptation of Large Language Models}. arXiv:2106.09685.\ \
+[6] Liu et al.\ (2019). \emph{RoBERTa: A Robustly Optimized BERT Pretraining Approach}. arXiv:1907.11692.
+\end{block}
+\end{minipage}
+
+\vspace{0.8cm}
 \begin{center}
-\textcolor{uomPurple}{\rule{0.95\paperwidth}{1pt}}\\[0.2cm]
 {\small
 \faGithub\ \ \texttt{https://github.com/d4k3r/NLU} \quad
 \faFile\ \ Model cards \& demo notebooks in Canvas submission
