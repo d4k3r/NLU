@@ -259,9 +259,11 @@ Baseline (Cat.\ B) & \textit{[\,--\,]} & \textit{[\,--\,]} & \textit{[\,--\,]} \
 \end{ensembleblock}
 
 \begin{ensembleblock}{Training Strategy}
-\textbf{Optuna HPO (20 trials) $\to$ FGM fine-tuning $\to$ XGBoost blending.}
 \vspace{0.1em}
-\begin{center}
+\noindent
+\begin{minipage}[t]{0.54\linewidth}
+\textbf{Optuna HPO (20 trials) $\to$ FGM fine-tuning $\to$ XGBoost blending.}\\[0.4em]
+\centering
 \renewcommand{\arraystretch}{1.10}
 \begin{tabular}{@{}l@{\enskip}l@{\enskip}l@{\enskip}l@{}}
 \toprule
@@ -273,7 +275,9 @@ RoBERTa-L         & Full FT      & 7.80e-6  & Focal \\
 DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 \bottomrule
 \end{tabular}
-\end{center}
+
+\vspace{0.6em}
+
 \begin{tabular}{@{}l@{: }l@{\qquad}l@{: }l@{}}
 \small Epochs & \small 5 & \small Batch & \small 16 (accum for XXL) \\
 \small Adversarial & \small FGM $\epsilon\!=\!1.0$
@@ -281,6 +285,14 @@ DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 \small LR & \small linear warmup 10\%
   & \small Time & \small $\sim$2 h total \\
 \end{tabular}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.44\linewidth}
+\raisebox{\dimexpr-\height+\ht\strutbox\relax}{%
+  \includegraphics[width=\linewidth,height=9cm,keepaspectratio]{download.png}%
+}\\[0.2em]
+\centering{\scriptsize XGBoost meta-learner voting weights — DeBERTa-v3-L dominates.}
+\end{minipage}
 \end{ensembleblock}
 
 \begin{ensembleblock}{Results on Dev Set}
