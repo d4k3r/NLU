@@ -34,6 +34,7 @@
 
 %----- Beamer theme tweaks ------------------------------------
 \usetheme{default}
+\setbeamercolor{background canvas}{bg=softGrey}
 \setbeamercolor{block title}{fg=white,bg=uomPurple}
 \setbeamercolor{block body}{fg=black,bg=softGrey}
 \setbeamerfont{block title}{size=\large,series=\bfseries}
@@ -65,8 +66,8 @@
 \begin{columns}[t,totalwidth=\paperwidth]
 \begin{column}{0.97\paperwidth}
 \begin{tikzpicture}
-    \node[fill=uomPurple,text=white,minimum width=0.97\paperwidth,
-          minimum height=6.2cm,inner sep=0.55cm] (title) {
+    \node[fill=uomPurple,text=white,minimum width=0.9712\paperwidth,
+            minimum height=6.2cm,inner sep=0.55cm] (title) {
           \begin{minipage}{0.95\paperwidth}
               \centering
               {\Huge\bfseries Natural Language Inference:
@@ -217,7 +218,7 @@ Baseline - LSTM & 0.6603 & 0.6606 & 0.3206 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{0.3em}
+\vspace{0.7em}
 \end{rwkvblock}
 
 \begin{rwkvblock}{Key Takeaways}
@@ -294,7 +295,7 @@ DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 \hfill
 \begin{minipage}[t]{0.44\linewidth}
 \raisebox{\dimexpr-\height+\ht\strutbox\relax}{%
-  \includegraphics[width=\linewidth,height=7cm,keepaspectratio]{download.png}%
+  \includegraphics[width=\linewidth,height=9cm,keepaspectratio]{download.png}%
 }\\[0.2em]
 \centering{\scriptsize XGBoost meta-learner voting weights - DeBERTa-v3-L dominates.}
 \end{minipage}
@@ -318,7 +319,7 @@ Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{0.3em}
+\vspace{0.7em}
 \end{ensembleblock}
 \vspace{-1.07cm}
 \begin{ensembleblock}{Key Takeaways}
@@ -352,6 +353,7 @@ Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 \begin{block}{\faBalanceScaleLeft\ \ Head-to-Head Comparison (Dev set)}
 \centering
 \renewcommand{\arraystretch}{1.25}
+\vspace{0.15cm}
 \begin{tabular}{lcccc}
 \toprule
 \textbf{System} & \textbf{Params (train)} & \textbf{F1}
