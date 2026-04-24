@@ -205,7 +205,7 @@ abilities intact.
 \toprule
  & \textbf{F1} & \textbf{Accuracy} & \textbf{MCC} \\
 \midrule
-Baseline (Cat.\ B) & \textit{[\,--\,]} & \textit{[\,--\,]} & \textit{[\,--\,]} \\
+Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
 \rowcolor{softGrey}
 \textcolor{accentGreen}{\textbf{\faTrophy\ \ Our RWKV-7 (LoRA)}} &
 \textcolor{accentGreen}{\textbf{0.9419}} &
@@ -302,10 +302,10 @@ DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 \toprule
  & \textbf{F1} & \textbf{Acc.} & \textbf{MCC} \\
 \midrule
-Baseline (C)       & \textit{[\dots]} & \textit{[\dots]} & \textit{[\dots]} \\
-Single best model  & \textcolor{accentGreen}{\textbf{0.9457}} & \textit{[\dots]} & \textit{[\dots]} \\
+Baseline — BERT   & 0.8198 & 0.8202 & 0.6400 \\
+Single best model (DeBERTa-v3-L)  & \textbf{0.9457} & \textit{[\dots]} & \textit{[\dots]} \\
 \rowcolor{softGrey}
-\textbf{\faTrophy\ \ Our Ensemble (XGBoost)} &
+\textcolor{accentGreen}{\textbf{\faTrophy\ \ Our Ensemble (XGBoost)}} &
 \textcolor{accentGreen}{\textbf{0.9621}} &
 \textit{[\dots]} & \textit{[\dots]} \\
 \bottomrule
@@ -317,8 +317,9 @@ weights DeBERTa-v3/XXL most heavily.
 
 \begin{ensembleblock}{Key Takeaways}
 \begin{itemize}
-    \item \textbf{$\sim$2.0M trainable params} for $\sim$2.5B total ensemble
-          via LoRA on DeBERTa-v2-XXL; three others are full fine-tunes.
+    \item \textbf{$\sim$1.13B trainable params} (1{,}127{,}362{,}370) across
+          the four-model ensemble; DeBERTa-v2-XXL uses LoRA while the three
+          others are full fine-tunes.
     \item \textbf{FGM adversarial training} improved all models' F1 in Optuna
           — perturbation $\epsilon\!=\!1.0$ on word embeddings.
     \item \textbf{XGBoost meta-learner} beats simple averaging by learning
@@ -353,7 +354,7 @@ weights DeBERTa-v3/XXL most heavily.
 \textcolor{rwkvBlue}{\textbf{RWKV-7 + LoRA}} &
 $\sim$83.8M & \textbf{0.9419} & 0.9399 & 0.8796 \\
 \textcolor{ensembleOrange}{\textbf{Transformer Ensemble}} &
-$\sim$2.5B ($\sim$2.0M trainable) & \textcolor{accentGreen}{\textbf{0.9621}} & \textit{[\dots]} & \textit{[\dots]} \\
+$\sim$1.13B trainable & \textcolor{accentGreen}{\textbf{0.9621}} & \textit{[\dots]} & \textit{[\dots]} \\
 \bottomrule
 \end{tabular}
 
@@ -361,7 +362,7 @@ $\sim$2.5B ($\sim$2.0M trainable) & \textcolor{accentGreen}{\textbf{0.9621}} & \
 \small A recurrent LLM with 1.15\% tunable parameters competes
 directly with a heavy transformer ensemble — the core
 headline of this project. The ensemble edges ahead with
-F1~0.9621 vs.\ 0.9419, at the cost of $\sim$2.5B params.
+F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
 \end{block}
 
 \vfill
