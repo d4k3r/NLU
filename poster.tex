@@ -4,10 +4,10 @@
 %  Format: A1 Landscape (compliant with coursework spec)
 %
 %  Layout:
-%    [Title bar — full width]
-%    [Task & Dataset & Project Spec — full width]
+%    [Title bar - full width]
+%    [Task & Dataset & Project Spec - full width]
 %    [Solution B: RWKV-7  |  Solution C: Transformer Ensemble]
-%    [Comparison + Limitations & Ethics — full width]
+%    [Comparison + Limitations & Ethics - full width]
 %==============================================================
 \documentclass[final,t]{beamer}
 \usepackage[orientation=landscape,size=a1,scale=1.15]{beamerposter}
@@ -60,7 +60,7 @@
 \vspace*{-0.4cm}
 
 %==============================================================
-%  TITLE BAR  (full width — matches the body layout)
+%  TITLE BAR  (full width - matches the body layout)
 %==============================================================
 \begin{columns}[t,totalwidth=\paperwidth]
 \begin{column}{0.97\paperwidth}
@@ -106,8 +106,8 @@ decide whether $h$ is entailed by $p$.\\[0.2em]
 \begin{tabular}{@{}r@{\;}l@{}}
 \textbf{Input:}  & sentence pair $(p,h)$ \\
 \textbf{Output:} & \emph{entailment} or \emph{contradiction}
-                   — binary label $\{1,\,0\}$ \\
-\textbf{Track:}  & A — pairwise sequence classification \\
+                   - binary label $\{1,\,0\}$ \\
+\textbf{Track:}  & A - pairwise sequence classification \\
 \end{tabular}
 \end{column}
 
@@ -135,16 +135,16 @@ Test (hidden)   & 3{,}302  \\
 \end{column}
 \end{columns}
 
-\vspace{-0.3cm}
+\vspace{0.6cm}
 
 %==============================================================
 %  TWO-COLUMN BODY : RWKV  |  Transformer Ensemble
-%  Raw side-by-side minipages with a hard fixed height — this
+%  Raw side-by-side minipages with a hard fixed height - this
 %  GUARANTEES both columns end at the same Y so the bottom row
 %  is perfectly aligned.  No \begin{columns} quirks.
 %==============================================================
 \newlength{\solncolheight}
-\setlength{\solncolheight}{32cm}
+\setlength{\solncolheight}{32.5cm}
 \newlength{\solncolwidth}
 \setlength{\solncolwidth}{0.485\paperwidth}
 
@@ -158,12 +158,12 @@ Test (hidden)   & 3{,}302  \\
 {\centering
 \colorbox{rwkvBlue}{\color{white}\large\bfseries
 \hspace{0.4em}\faCrow\ \ Solution B: RWKV-7 ``Goose''\hspace{0.4em}}\par}
-\vspace{-0.6em}
+\vspace{0.1cm}
 
 \begin{rwkvblock}{Model Overview}
 \textbf{An attention-free, recurrent 7.2B-parameter LLM.}
 \begin{itemize}
-    \item \textbf{Architecture:} RWKV-7 — an advanced RNN
+    \item \textbf{Architecture:} RWKV-7 - an advanced RNN
           reaching transformer-level quality without
           quadratic self-attention.
     \item \textbf{Core innovation:} the \emph{Delta Rule}
@@ -177,7 +177,7 @@ Test (hidden)   & 3{,}302  \\
           inference cost.
 \end{itemize}
 \end{rwkvblock}
-
+\vspace{-0.05cm}
 \begin{rwkvblock}{Training Strategy: LoRA Fine-Tuning}
 \textbf{Low-Rank Adaptation} tailored for binary NLI classification.
 \begin{center}
@@ -193,10 +193,12 @@ Test (hidden)   & 3{,}302  \\
 \end{tabular}
 \end{center}
 \textbf{Why LoRA?} Small low-rank matrices are added into the
-frozen RWKV-7 model — updating only $\sim$1.15\% of its weights
-— to fine-tune it for NLI while keeping its general language
+frozen RWKV-7 model - updating only $\sim$1.15\% of its weights
+- to fine-tune it for NLI while keeping its general language
 abilities intact.
 \end{rwkvblock}
+
+\vspace{1.625cm}
 
 \begin{rwkvblock}{Results on Dev Set}
 \vspace{0.3em}
@@ -206,7 +208,7 @@ abilities intact.
 \toprule
  & \textbf{F1} & \textbf{Accuracy} & \textbf{MCC} \\
 \midrule
-Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
+Baseline - LSTM & 0.6603 & 0.6606 & 0.3206 \\
 \rowcolor{softGrey}
 \textcolor{accentGreen}{\textbf{\faTrophy\ \ Our RWKV-7 (LoRA)}} &
 \textcolor{accentGreen}{\textbf{0.9419}} &
@@ -229,7 +231,7 @@ Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
           (Solution C) on this NLI task.
     \item \textbf{Scale vs.\ efficiency}: the lighter 2.9B
           variant came \emph{close but not as good} even after 7
-          epochs (vs.\ 4 for 7.2B) — we chose 7.2B because the
+          epochs (vs.\ 4 for 7.2B) - we chose 7.2B because the
           goal was maximum achievable performance, not minimum
           compute.
 \end{itemize}
@@ -247,7 +249,7 @@ Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
 {\centering
 \colorbox{ensembleOrange}{\color{white}\large\bfseries
 \hspace{0.4em}\faLayerGroup\ \ Solution C: Transformer Ensemble\hspace{0.4em}}\par}
-\vspace{-0.6em}
+\vspace{0.1cm}
 
 \begin{ensembleblock}{Model Overview}
 \textbf{Blending ensemble of four transformers with an XGBoost meta-learner.}
@@ -260,7 +262,7 @@ Baseline — LSTM & 0.6603 & 0.6606 & 0.3206 \\
     \item \textbf{Why:} Diverse ensemble architecture demonstrated significant performance improvements over a single model.
 \end{itemize}
 \end{ensembleblock}
-
+\vspace{-0.01cm}
 \begin{ensembleblock}{Training Strategy}
 \vspace{0.1em}
 \noindent
@@ -292,12 +294,12 @@ DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 \hfill
 \begin{minipage}[t]{0.44\linewidth}
 \raisebox{\dimexpr-\height+\ht\strutbox\relax}{%
-  \includegraphics[width=\linewidth,height=9.5cm,keepaspectratio]{download.png}%
+  \includegraphics[width=\linewidth,height=7cm,keepaspectratio]{download.png}%
 }\\[0.2em]
-\centering{\scriptsize XGBoost meta-learner voting weights — DeBERTa-v3-L dominates.}
+\centering{\scriptsize XGBoost meta-learner voting weights - DeBERTa-v3-L dominates.}
 \end{minipage}
 \end{ensembleblock}
-
+\vspace{-0.03cm}
 \begin{ensembleblock}{Results on Dev Set}
 \vspace{0.3em}
 \begin{center}
@@ -306,7 +308,7 @@ DeBERTa-v2-XXL    & LoRA $r\!=\!8$ & 2.65e-4  & CE \\
 \toprule
  & \textbf{F1} & \textbf{Acc.} & \textbf{MCC} \\
 \midrule
-Baseline — BERT   & 0.8198 & 0.8202 & 0.6400 \\
+Baseline - BERT   & 0.8198 & 0.8202 & 0.6400 \\
 Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 \rowcolor{softGrey}
 \textcolor{accentGreen}{\textbf{\faTrophy\ \ Our Ensemble (XGBoost)}} &
@@ -318,14 +320,14 @@ Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 \end{center}
 \vspace{0.3em}
 \end{ensembleblock}
-
+\vspace{-1.07cm}
 \begin{ensembleblock}{Key Takeaways}
 \begin{itemize}
     \item \textbf{$\sim$1.13B trainable params} (1{,}127{,}362{,}370) across
           the four-model ensemble; DeBERTa-v2-XXL uses LoRA while the three
           others are full fine-tunes.
     \item \textbf{FGM adversarial training} improved all models' F1 in Optuna
-          — perturbation $\epsilon\!=\!1.0$ on word embeddings.
+          - perturbation $\epsilon\!=\!1.0$ on word embeddings.
     \item \textbf{XGBoost meta-learner} beats simple averaging by learning
           non-uniform per-model weights; ensemble F1 = 0.9621 vs.\
           single-best $\sim$0.9278.
@@ -347,7 +349,7 @@ Single best model (DeBERTa-v3-L)  & 0.9480 & 0.9480 & 0.8960 \\
 \noindent
 \begin{minipage}[t][\bottomrowheight][t]{\solncolwidth}
 
-\begin{block}{\faBalanceScaleLeft\ \ Head-to-Head Comparison (Dev)}
+\begin{block}{\faBalanceScaleLeft\ \ Head-to-Head Comparison (Dev set)}
 \centering
 \renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lcccc}
@@ -364,7 +366,7 @@ $\sim$1.13B trainable & \textcolor{accentGreen}{\textbf{0.9621}} & 0.9621 & 0.92
 
 \vspace{0.3em}
 \small A recurrent LLM with 1.15\% tunable parameters competes
-directly with a heavy transformer ensemble — the core
+directly with a heavy transformer ensemble - the core
 headline of this project. The ensemble edges ahead with
 F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
 \end{block}
@@ -374,7 +376,7 @@ F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
 \hfill
 \begin{minipage}[t][\bottomrowheight][t]{\solncolwidth}
 
-\begin{block}{\faBalanceScale\ \ Limitations \& Ethical Considerations}
+\begin{block}{\faBalanceScale\ \ Limitations \& Ethical Considerations\vphantom{p} \vphantom{(Dev set)}}
 \begin{itemize}
     \item \textbf{Architecture implementation constraints.}
           We use the \texttt{fla-hub} port of RWKV-7 for HF/PEFT
@@ -387,7 +389,7 @@ F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
           fine-tuning, but pre-training corpora are \emph{not}
           controlled or audited.
     \item \textbf{Label schema.} Binary entailment is a
-          simplification — real-world inference often includes a
+          simplification - real-world inference often includes a
           \emph{neutral} class.
 \end{itemize}
 \end{block}
@@ -403,10 +405,10 @@ F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
 \begin{block}{\faBook\ \ References}
 \small
 \setlength{\parskip}{0.25em}
-\textcolor{rwkvBlue}{\textbf{Solution B — RWKV-7:}}\ \
+\textcolor{rwkvBlue}{\textbf{Solution B - RWKV-7:}}\ \
 [1] Hu et al.\ (2021). \emph{LoRA: Low-Rank Adaptation of Large Language Models}. arXiv:2106.09685.\ \
 [2] Peng et al.\ (2025). \emph{RWKV-7 ``Goose'' with Expressive Dynamic State Evolution}. arXiv:2503.14456.\\
-\textcolor{ensembleOrange}{\textbf{Solution C — Transformer Ensemble:}}\ \
+\textcolor{ensembleOrange}{\textbf{Solution C - Transformer Ensemble:}}\ \
 [1] Chen \& Guestrin (2016). \emph{XGBoost: A Scalable Tree Boosting System}. KDD '16, pp.\ 785--794.\ \
 [2] Clark et al.\ (2020). \emph{ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators}. arXiv:2003.10555.\ \
 [3] He et al.\ (2021). \emph{DeBERTa: Decoding-enhanced BERT with Disentangled Attention}. arXiv:2006.03654.\ \
@@ -416,7 +418,7 @@ F1~0.9621 vs.\ 0.9419, at the cost of $\sim$1.13B trainable params.
 \end{block}
 \end{minipage}
 
-\vspace{0.8cm}
+\vspace{-0.2cm}
 \begin{center}
 {\small
 \faGithub\ \ \texttt{https://github.com/d4k3r/NLU} \quad
